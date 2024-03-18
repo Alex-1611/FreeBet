@@ -1,4 +1,6 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+# FreeBet
+
+### Colectie de jocuri tip casino precum Roulette, BlackJack, Baccarat etc. La jocurile de carti se poate customiza numarul de pachete de carti folosite.
 
 ### Important!
 Aveți voie cu cod generat de modele de limbaj la care nu ați contribuit semnificativ doar în folder-ul `generated`.
