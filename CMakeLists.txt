@@ -98,8 +98,12 @@ endfunction()
 add_subdirectory(include/raylib)
 
 add_executable(${PROJECT_NAME} src/main.cpp
-        src/classes.h
-        src/includes.h
+        src/roulette.h
+        src/roulette.cpp
+        src/playing_cards.h
+        src/playing_cards.cpp
+        src/card_games.h
+        src/card_games.cpp
         )
 target_link_libraries(${PROJECT_NAME} raylib)
 ###############################################################################

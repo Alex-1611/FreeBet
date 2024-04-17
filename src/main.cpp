@@ -1,23 +1,31 @@
-#include "includes.h"
-#include "classes.h"
+#include "card_games.h"
+#include "roulette.h"
 
 int main() {
-    std::cout<<"1. Roulette\n2. Deck of cards\n";
-    int choice;
-    std::cin>>choice;
-    switch (choice) {
-        case 1: {
-            Roulette r;
-            break;
+    while(true){
+        std::cout << "Manu:" << std::endl;
+        std::cout << "1. Roulette" << std::endl;
+        std::cout << "2. Baccarat" << std::endl;
+        std::cout << "3. Exit" << std::endl;
+        std::cout<< "Enter your choice: ";
+        int choice;
+        std::cin >> choice;
+        switch(choice){
+            case 1: {
+                Roulette r;
+                r.play();
+                break;
+            }
+            case 2: {
+                Baccarat b;
+                b.play();
+                break;
+            }
+            case 3:
+                return 0;
+            default:
+                std::cout << "Invalid choice" << std::endl;
         }
-        case 2: {
-            Deck d(1);
-            d.shuffle_cards();
-            std::cout << d;
-            break;
-        }
-        default:
-            std::cout << "Invalid choice";
     }
     return 0;
 }
