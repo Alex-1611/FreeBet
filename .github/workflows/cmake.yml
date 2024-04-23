@@ -97,7 +97,7 @@ jobs:
 
       - name: Install raylib dependencies
         run: |
-          sudo apt-get install libwayland-bin libxrandr-dev libxinerama-dev libx11-dev libxcursor-dev libxi-dev libxext-dev
+          sudo apt-get install libwayland-bin libxrandr-dev libxinerama-dev libx11-dev libxcursor-dev libxi-dev libxext-dev libgl1-mesa-dev
 
       - name: Configure CMake
         uses: ./.github/actions/configure-cmake
@@ -221,7 +221,7 @@ jobs:
       - name: Install raylib dependencies
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get install libwayland-bin libxrandr-dev libxinerama-dev libx11-dev libxcursor-dev libxi-dev libxext-dev
+          sudo apt-get install libwayland-bin libxrandr-dev libxinerama-dev libx11-dev libxcursor-dev libxi-dev libxext-dev libgl1-mesa-dev
 
       # Also see https://github.com/actions/runner-images/discussions/9446#discussioncomment-8668538
       - name: Install Clang 17
