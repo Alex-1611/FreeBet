@@ -197,11 +197,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install wayland-protocols
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends wayland-protocols
-
       - name: Prepare env
         run: |
           echo ${GITHUB_WORKSPACE}
@@ -224,6 +219,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install ninja-build
+
+      - name: Install wayland-protocols
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends wayland-protocols
 
       # Also see https://github.com/actions/runner-images/discussions/9446#discussioncomment-8668538
       - name: Install Clang 17
