@@ -51,7 +51,7 @@ jobs:
 
       - name: Install raylib dependencies
         run: |
-          sudo apt-get install libwayland-bin libxrandr-dev libxinerama-dev libx11-dev libxcursor-dev libxi-dev libxext-dev
+          sudo apt-get install libwayland-bin libxrandr-dev libxinerama-dev libx11-dev libxcursor-dev libxi-dev libxext-dev libgl1-mesa-dev
 
       # The flag CMAKE_EXPORT_COMPILE_COMMANDS generates compile_commands.json
       # which is used by cppcheck and clang-tidy
