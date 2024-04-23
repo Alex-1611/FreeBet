@@ -70,7 +70,6 @@ public:
 };
 
 class Round {
-    int bet;
     BaccaratBet winner;
 protected:
     Hand *player, *dealer;

@@ -78,7 +78,7 @@ class ColorBet : public Roulette::Bet {
     NumberColor color;
     static int win_multiplier;
 public:
-    ColorBet(int amount);
+    explicit ColorBet(int amount);
 
     [[nodiscard]] int get_win() const override;
 
@@ -89,7 +89,7 @@ class ParityBet : public Roulette::Bet {
     NumberParity parity;
     static int win_multiplier;
 public:
-    ParityBet(int amount);
+    explicit ParityBet(int amount);
 
     [[nodiscard]] int get_win() const override;
 
@@ -100,7 +100,7 @@ class DozenBet : public Roulette::Bet {
     int dozen;
     static int win_multiplier;
 public:
-    DozenBet(int amount);
+    explicit DozenBet(int amount);
 
     [[nodiscard]] int get_win() const override;
 
@@ -111,7 +111,7 @@ class ColumnBet : public Roulette::Bet {
     int column;
     static int win_multiplier;
 public:
-    ColumnBet(int amount);
+    explicit ColumnBet(int amount);
 
     [[nodiscard]] int get_win() const override;
 
@@ -122,7 +122,7 @@ class NumberBet : public Roulette::Bet {
     int number;
     static int win_multiplier;
 public:
-    NumberBet(int amount);
+    explicit NumberBet(int amount);
 
     [[nodiscard]] int get_win() const override;
 

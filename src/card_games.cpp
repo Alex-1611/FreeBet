@@ -25,7 +25,7 @@ std::ostream &operator<<(std::ostream &os, const BaccaratBet &b) {
     return os;
 }
 
-CardGame::CardGame() : balance(0) {}
+CardGame::CardGame() : balance(0), nr_decks(0) {}
 
 void CardGame::update_balance() {
     int new_balance;
@@ -67,7 +67,7 @@ void Hand::add_card(Deck::Card *card) {
 int Hand::get_total() const { return total; }
 
 std::ostream &operator<<(std::ostream &os, const Hand &h) {
-    for (auto &c: h.cards)
+    for (auto const &c: h.cards)
         os << *c << std::endl;
     os << "Total: " << h.total << std::endl;
     return os;
@@ -201,6 +201,7 @@ void Baccarat::bet() {
                     bet_type = BaccaratBet::TIE;
                     break;
                 default:
+                    bet_type = BaccaratBet::UNDECIDED;
                     break;
             }
             break;
@@ -275,7 +276,7 @@ void Baccarat::play() {
 
 }
 
-Round::Round() : bet(0), winner(BaccaratBet::UNDECIDED), player(nullptr), dealer(nullptr) {}
+Round::Round() : winner(BaccaratBet::UNDECIDED), player(nullptr), dealer(nullptr) {}
 
 void Round::update_winner(BaccaratBet w) {
     this->winner = w;

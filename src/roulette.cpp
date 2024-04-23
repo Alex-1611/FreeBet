@@ -52,7 +52,7 @@ Roulette::Roulette() {
             if (balance < 0)
                 throw std::invalid_argument("Invalid number choice.");
             break;
-        } catch (std::invalid_argument &e) {
+        } catch (std::invalid_argument &) {
             std::cout << "Invalid number choice. Please try again." << std::endl;
         }
     }
@@ -91,7 +91,7 @@ void Roulette::play() {
                                 if (amount < 0 || amount > balance)
                                     throw std::invalid_argument("Invalid number choice.");
                                 break;
-                            } catch (std::invalid_argument &e) {
+                            } catch (std::invalid_argument &) {
                                 std::cout << "Invalid number choice. Please try again." << std::endl;
                             }
                         }
@@ -116,7 +116,7 @@ void Roulette::play() {
                                 if (amount < 0 || amount > balance)
                                     throw std::invalid_argument("Invalid number choice.");
                                 break;
-                            } catch (std::invalid_argument &e) {
+                            } catch (std::invalid_argument &) {
                                 std::cout << "Invalid number choice. Please try again." << std::endl;
                             }
                         }
@@ -141,7 +141,7 @@ void Roulette::play() {
                                 if (amount < 0 || amount > balance)
                                     throw std::invalid_argument("Invalid number choice.");
                                 break;
-                            } catch (std::invalid_argument &e) {
+                            } catch (std::invalid_argument &) {
                                 std::cout << "Invalid number choice. Please try again." << std::endl;
                             }
                         }
@@ -166,7 +166,7 @@ void Roulette::play() {
                                 if (amount < 0 || amount > balance)
                                     throw std::invalid_argument("Invalid number choice.");
                                 break;
-                            } catch (std::invalid_argument &e) {
+                            } catch (std::invalid_argument &) {
                                 std::cout << "Invalid number choice. Please try again." << std::endl;
                             }
                         }
@@ -191,7 +191,7 @@ void Roulette::play() {
                                 if (amount < 0 || amount > balance)
                                     throw std::invalid_argument("Invalid number choice.");
                                 break;
-                            } catch (std::invalid_argument &e) {
+                            } catch (std::invalid_argument &) {
                                 std::cout << "Invalid number choice. Please try again." << std::endl;
                             }
                         }
@@ -424,7 +424,7 @@ NumberBet::NumberBet(int amount) : Bet(amount) {
             if (number < 0 || number > 36)
                 throw std::invalid_argument("Invalid number choice.");
             break;
-        } catch (std::invalid_argument &e) {
+        } catch (std::invalid_argument &) {
             std::cout << "Invalid number choice. Please try again." << std::endl;
         }
     }
