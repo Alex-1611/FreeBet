@@ -272,6 +272,12 @@ jobs:
           path: tools
           key: tools-clang-stdlib-msan
 
+      - name: Debug PATH and wayland-scanner location
+        if: runner.os == 'Linux'
+        run: |
+          echo "PATH: $PATH"
+          echo "wayland-scanner: $(which wayland-scanner)"
+
       - name: Configure CMake
         uses: ./.github/actions/configure-cmake
         with:
