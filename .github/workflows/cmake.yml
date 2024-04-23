@@ -44,27 +44,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install wayland-protocols'
-        run: |
-          set -x
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends wayland-protocols
-          which wayland-scanner
-
-      - name: Add wayland-scanner to PATH
-        run: |
-          echo "$(dirname $(which wayland-scanner))" >> $GITHUB_PATH
-
       - name: Install cppcheck
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends cppcheck
 
-      - name: Debug PATH and wayland-scanner location
-        if: runner.os == 'Linux'
+      - name: Install wayland-protocols
         run: |
-          echo "PATH: $PATH"
-          echo "wayland-scanner: $(which wayland-scanner)"
+          sudo apt-get install -y --no-install-recommends wayland-protocols
+          which wayland-scanner
 
       # The flag CMAKE_EXPORT_COMPILE_COMMANDS generates compile_commands.json
       # which is used by cppcheck and clang-tidy
@@ -96,15 +84,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install wayland-protocols
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends wayland-protocols
-
-      - name: Add wayland-scanner to PATH
-        run: |
-          echo "$(dirname $(which wayland-scanner))" >> $GITHUB_PATH
-
       # Also see https://github.com/actions/runner-images/discussions/9446#discussioncomment-8668538
       - name: Install Clang 17
         run: |
@@ -116,6 +95,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends clang-tidy-17 libc++-17-dev libc++abi-17-dev
+
+      - name: Install wayland-protocols
+        run: |
+          sudo apt-get install --no-install-recommends wayland-protocols
 
       - name: Configure CMake
         uses: ./.github/actions/configure-cmake
