@@ -44,10 +44,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install wayland-protocols
+      - name: Install wayland-protocols'
         run: |
+          set -x
           sudo apt-get update
-          sudo apt-get install --no-install-recommends wayland-protocols
+          sudo apt-get install -y --no-install-recommends wayland-protocols
           which wayland-scanner
 
       - name: Add wayland-scanner to PATH
