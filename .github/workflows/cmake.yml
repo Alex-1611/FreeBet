@@ -49,6 +49,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install --no-install-recommends wayland-protocols
 
+      - name: Add wayland-scanner to PATH
+        run: |
+          echo "$(dirname $(which wayland-scanner))" >> $GITHUB_PATH
+
       - name: Install cppcheck
         run: |
           sudo apt-get update
@@ -88,6 +92,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends wayland-protocols
+
+      - name: Add wayland-scanner to PATH
+        run: |
+          echo "$(dirname $(which wayland-scanner))" >> $GITHUB_PATH
 
       # Also see https://github.com/actions/runner-images/discussions/9446#discussioncomment-8668538
       - name: Install Clang 17
@@ -225,6 +233,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends wayland-protocols
+
+      - name: Add wayland-scanner to PATH
+        if: runner.os == 'Linux'
+        run: |
+          echo "$(dirname $(which wayland-scanner))" >> $GITHUB_PATH
 
       # Also see https://github.com/actions/runner-images/discussions/9446#discussioncomment-8668538
       - name: Install Clang 17
