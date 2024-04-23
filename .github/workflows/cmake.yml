@@ -51,7 +51,8 @@ jobs:
 
       - name: Install wayland-protocols
         run: |
-          sudo apt-get install -y --no-install-recommends wayland-protocols
+          set -x
+          sudo apt-get install -y --no-install-recommends libwayland-bin
           which wayland-scanner
 
       # The flag CMAKE_EXPORT_COMPILE_COMMANDS generates compile_commands.json
