@@ -48,6 +48,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends wayland-protocols
+          which wayland-scanner
 
       - name: Add wayland-scanner to PATH
         run: |
