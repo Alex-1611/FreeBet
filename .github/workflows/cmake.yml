@@ -273,6 +273,7 @@ jobs:
         run: |
           sudo xcode-select -s /Applications/Xcode_14.0.1.app
           echo "Active developer directory: $(xcode-select -p)"
+          xcodebuild -showsdks
           cmake --build "${BUILD_DIR}" --config ${BUILD_TYPE} -j6
 
       - name: Install
