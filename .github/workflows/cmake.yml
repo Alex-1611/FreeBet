@@ -262,6 +262,10 @@ jobs:
           echo "PATH: $PATH"
           echo "wayland-scanner: $(which wayland-scanner)"
 
+      - name: Downgrade xcode version
+        if: runner.os == 'macOS' && matrix.cxx == 'g++'
+        run: sudo xcode-select -s /Applications/Xcode_14.0.1.app/Contents/Developer
+
       - name: Configure CMake
         uses: ./.github/actions/configure-cmake
         with:
@@ -297,7 +301,7 @@ jobs:
           install_name_tool -change @rpath/libclang_rt.asan_osx_dynamic.dylib @executable_path/lib/libclang_rt.asan_osx_dynamic.dylib ${{ env.ZIP_NAME }}/${{ env.EXECUTABLE_NAME }}
           mv lib ${{ env.ZIP_NAME }}/
 
-      - name: Copy missing dylibs (g++) and change xcode version
+      - name: Copy missing dylibs (g++)
         if: runner.os == 'macOS' && startsWith(matrix.cxx, 'g++')
         run: |
           mkdir lib
@@ -305,7 +309,6 @@ jobs:
           install_name_tool -change /usr/local/opt/gcc@12/lib/gcc/12/libstdc++.6.dylib @executable_path/lib/libstdc++.6.dylib ${{ env.ZIP_NAME }}/${{ env.EXECUTABLE_NAME }}
           install_name_tool -change /usr/local/opt/gcc@12/lib/gcc/12/libgcc_s.1.1.dylib @executable_path/lib/libgcc_s.1.1.dylib ${{ env.ZIP_NAME }}/${{ env.EXECUTABLE_NAME }}
           mv lib ${{ env.ZIP_NAME }}/
-          sudo xcode-select -s /Applications/Xcode_14.0.1.app/Contents/Developer
 
       - name: Copy missing dlls
         if: runner.os == 'Windows' && matrix.cxx == 'cl'
