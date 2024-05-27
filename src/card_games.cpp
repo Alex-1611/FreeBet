@@ -67,7 +67,7 @@ void Hand::add_card(Deck::Card *card) {
 int Hand::get_total() const { return total; }
 
 std::ostream &operator<<(std::ostream &os, const Hand &h) {
-    for (auto const& c: h.cards)
+    for (const auto& c: h.cards)
         os << *c << std::endl;
     os << "Total: " << h.total << std::endl;
     return os;
