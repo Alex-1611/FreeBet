@@ -192,6 +192,7 @@ jobs:
             cmake_generator: Ninja
 
     steps:
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
@@ -199,6 +200,10 @@ jobs:
         run: |
           echo ${GITHUB_WORKSPACE}
           mkdir ${GITHUB_WORKSPACE}/artifacts
+          //check if macos with gcc
+            if [[ "${RUNNER_OS}" == "macos" && "${CXX}" == "g++-12" ]]; then
+                echo "DEVELOPER_DIR=/Applications/Xcode_14.0.1.app/Contents/Developer" >> $GITHUB_ENV
+            fi
 
       - name: Set timestamp and zip name
         run: |
@@ -271,9 +276,6 @@ jobs:
       - name: Build
         # Execute the build using N jobs (-jN)
         run: |
-          sudo xcode-select -s /Applications/Xcode_14.0.1.app
-          echo "Active developer directory: $(xcode-select -p)"
-          xcodebuild -showsdks
           cmake --build "${BUILD_DIR}" --config ${BUILD_TYPE} -j6
 
       - name: Install
