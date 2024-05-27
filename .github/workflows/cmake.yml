@@ -196,13 +196,16 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Change Xcode to 14.0.1
+        if: runner.os == 'macOS' && matrix.cxx == 'g++-12'
+        uses: BoundfoxStudios/action-xcode-select@v1
+        with:
+          version: "14.0.1"
+
       - name: Prepare env
         run: |
           echo ${GITHUB_WORKSPACE}
           mkdir ${GITHUB_WORKSPACE}/artifacts
-            if [[ "${RUNNER_OS}" == "macos" && "${CXX}" == "g++-12" ]]; then
-                echo "DEVELOPER_DIR=/Applications/Xcode_14.0.1.app/Contents/Developer" >> $GITHUB_ENV
-            fi
 
       - name: Set timestamp and zip name
         run: |
