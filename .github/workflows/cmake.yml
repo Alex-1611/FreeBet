@@ -264,7 +264,9 @@ jobs:
 
       - name: Downgrade xcode version
         if: runner.os == 'macOS' && matrix.cxx == 'g++'
-        run: sudo xcode-select -s /Applications/Xcode_14.0.1.app/Contents/Developer
+        run: |
+          sudo xcode-select -s /Applications/Xcode_14.0.1.app/Contents/Developer
+          xcodebuild -showsdks
 
       - name: Configure CMake
         uses: ./.github/actions/configure-cmake
