@@ -262,12 +262,6 @@ jobs:
           echo "PATH: $PATH"
           echo "wayland-scanner: $(which wayland-scanner)"
 
-      - name: Downgrade xcode version
-        if: runner.os == 'macOS' && matrix.cxx == 'g++'
-        run: |
-          sudo xcode-select -s /Applications/Xcode_14.0.1.app/Contents/Developer
-          xcodebuild -showsdks
-
       - name: Configure CMake
         uses: ./.github/actions/configure-cmake
         with:
@@ -276,7 +270,10 @@ jobs:
 
       - name: Build
         # Execute the build using N jobs (-jN)
-        run: cmake --build "${BUILD_DIR}" --config ${BUILD_TYPE} -j6
+        run: |
+          sudo xcode-select -s /Applications/Xcode_14.0.1.app
+          echo "Active developer directory: $(xcode-select -p)"
+          cmake --build "${BUILD_DIR}" --config ${BUILD_TYPE} -j6
 
       - name: Install
         # Use CMake to "install" build artifacts (only interested in CMake registered targets) to our custom artifacts directory
