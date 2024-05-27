@@ -200,7 +200,6 @@ jobs:
         run: |
           echo ${GITHUB_WORKSPACE}
           mkdir ${GITHUB_WORKSPACE}/artifacts
-          //check if macos with gcc
             if [[ "${RUNNER_OS}" == "macos" && "${CXX}" == "g++-12" ]]; then
                 echo "DEVELOPER_DIR=/Applications/Xcode_14.0.1.app/Contents/Developer" >> $GITHUB_ENV
             fi
