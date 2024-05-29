@@ -1,5 +1,5 @@
-#include "card_games.h"
-#include "roulette.h"
+#include "../include/card_games.h"
+#include "../include/roulette.h"
 
 int main() {
     while(true){

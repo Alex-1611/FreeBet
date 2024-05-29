@@ -1,4 +1,4 @@
-#include "playing_cards.h"
+#include "../include/playing_cards.h"
 
 std::ostream &operator<<(std::ostream &out, const Suit &s) {
     switch (s) {

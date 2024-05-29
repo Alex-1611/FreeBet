@@ -100,11 +100,11 @@ endif()
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 
 add_executable(${PROJECT_NAME} src/main.cpp
-        src/roulette.h
+        include/roulette.h
         src/roulette.cpp
-        src/playing_cards.h
+        include/playing_cards.h
         src/playing_cards.cpp
-        src/card_games.h
+        include/card_games.h
         src/card_games.cpp
         )
 target_link_libraries(${PROJECT_NAME} raylib)

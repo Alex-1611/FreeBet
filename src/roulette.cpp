@@ -1,4 +1,4 @@
-#include "roulette.h"
+#include "../include/roulette.h"
 
 std::ostream &operator<<(std::ostream &out, const NumberColor &c) {
     switch (c) {

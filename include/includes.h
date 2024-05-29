@@ -10,6 +10,6 @@
 #include <thread>
 #include <chrono>
 #include <cstdlib>
-#include <raylib.h>
+#include "raylib.h"
 
 #endif //INCLUDES_H

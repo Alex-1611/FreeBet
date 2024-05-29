@@ -1,4 +1,4 @@
-#include "card_games.h"
+#include "../include/card_games.h"
 
 enum class BaccaratBet {
     UNDECIDED,
