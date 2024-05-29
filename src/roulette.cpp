@@ -58,11 +58,16 @@ Roulette::Roulette() {
     }
 }
 
+int Roulette::add_balance(int amount) {
+    balance += amount;
+    return balance;
+}
+
 void Roulette::play() {
+    std::unique_ptr<RouletteRound> r = nullptr;
     bool should_continue = true;
     int menu_choice, bet_choice, amount;
     std::string aux;
-    Number *nr;
     while (true) {
         std::cout << "Menu: " << std::endl;
         std::cout << "1. Bet" << std::endl;
@@ -73,143 +78,48 @@ void Roulette::play() {
         std::cin >> menu_choice;
         switch (menu_choice) {
             case 1:
-                std::cout << "Your balance: " << balance << std::endl;
+                r = std::make_unique<RouletteRound>(this);
+                enter_amount:
+                std::cout << "Enter amount: ";
+                std::cin >> amount;
+                //check if amount is int
+                if (std::cin.fail()) {
+                    std::cin.clear();
+                    std::cin.ignore(1000, '\n');
+                    std::cout << "Invalid amount. Please try again." << std::endl;
+                    goto enter_amount;
+                }
+                choose_bet:
                 std::cout << "Choose bet type: " << std::endl;
                 std::cout << "1. Color" << std::endl;
                 std::cout << "2. Parity" << std::endl;
                 std::cout << "3. Dozen" << std::endl;
                 std::cout << "4. Column" << std::endl;
                 std::cout << "5. Number" << std::endl;
+                std::cout << "Enter your choice: ";
                 std::cin >> bet_choice;
-                switch (bet_choice) {
-                    case 1: {
-                        while (true) {
-                            std::cout << "Choose bet amount: ";
-                            std::cin >> aux;
-                            try {
-                                amount = std::stoi(aux);
-                                if (amount < 0 || amount > balance)
-                                    throw std::invalid_argument("Invalid number choice.");
-                                break;
-                            } catch (std::invalid_argument &) {
-                                std::cout << "Invalid number choice. Please try again." << std::endl;
-                            }
-                        }
-                        ColorBet bet(amount);
-                        balance -= bet.get_amount();
-                        nr = spin_wheel();
-                        std::cout << "It landed on: " << nr->get_value() << std::endl;
-                        if (bet.check_win(*nr)) {
-                            balance += bet.get_win();
-                            std::cout << "You won! Your balance is now: " << balance << std::endl;
-                        } else {
-                            std::cout << "You lost! Your balance is now: " << balance << std::endl;
-                        }
-                        break;
-                    }
-                    case 2: {
-                        while (true) {
-                            std::cout << "Choose bet amount: ";
-                            std::cin >> aux;
-                            try {
-                                amount = std::stoi(aux);
-                                if (amount < 0 || amount > balance)
-                                    throw std::invalid_argument("Invalid number choice.");
-                                break;
-                            } catch (std::invalid_argument &) {
-                                std::cout << "Invalid number choice. Please try again." << std::endl;
-                            }
-                        }
-                        ParityBet bet(amount);
-                        balance -= bet.get_amount();
-                        nr = spin_wheel();
-                        std::cout << "It landed on: " << nr->get_value() << std::endl;
-                        if (bet.check_win(*nr)) {
-                            balance += bet.get_win();
-                            std::cout << "You won! Your balance is now: " << balance << std::endl;
-                        } else {
-                            std::cout << "You lost! Your balance is now: " << balance << std::endl;
-                        }
-                        break;
-                    }
-                    case 3: {
-                        while (true) {
-                            std::cout << "Choose bet amount: ";
-                            std::cin >> aux;
-                            try {
-                                amount = std::stoi(aux);
-                                if (amount < 0 || amount > balance)
-                                    throw std::invalid_argument("Invalid number choice.");
-                                break;
-                            } catch (std::invalid_argument &) {
-                                std::cout << "Invalid number choice. Please try again." << std::endl;
-                            }
-                        }
-                        DozenBet bet(amount);
-                        balance -= bet.get_amount();
-                        nr = spin_wheel();
-                        std::cout << "It landed on: " << nr->get_value() << std::endl;
-                        if (bet.check_win(*nr)) {
-                            balance += bet.get_win();
-                            std::cout << "You won! Your balance is now: " << balance << std::endl;
-                        } else {
-                            std::cout << "You lost! Your balance is now: " << balance << std::endl;
-                        }
-                        break;
-                    }
-                    case 4: {
-                        while (true) {
-                            std::cout << "Choose bet amount: ";
-                            std::cin >> aux;
-                            try {
-                                amount = std::stoi(aux);
-                                if (amount < 0 || amount > balance)
-                                    throw std::invalid_argument("Invalid number choice.");
-                                break;
-                            } catch (std::invalid_argument &) {
-                                std::cout << "Invalid number choice. Please try again." << std::endl;
-                            }
-                        }
-                        ColumnBet bet(amount);
-                        balance -= bet.get_amount();
-                        nr = spin_wheel();
-                        std::cout << "It landed on: " << nr->get_value() << std::endl;
-                        if (bet.check_win(*nr)) {
-                            balance += bet.get_win();
-                            std::cout << "You won! Your balance is now: " << balance << std::endl;
-                        } else {
-                            std::cout << "You lost! Your balance is now: " << balance << std::endl;
-                        }
-                        break;
-                    }
-                    case 5: {
-                        while (true) {
-                            std::cout << "Choose bet amount: ";
-                            std::cin >> aux;
-                            try {
-                                amount = std::stoi(aux);
-                                if (amount < 0 || amount > balance)
-                                    throw std::invalid_argument("Invalid number choice.");
-                                break;
-                            } catch (std::invalid_argument &) {
-                                std::cout << "Invalid number choice. Please try again." << std::endl;
-                            }
-                        }
-                        NumberBet bet(amount);
-                        balance -= bet.get_amount();
-                        nr = spin_wheel();
-                        std::cout << "It landed on: " << nr->get_value() << std::endl;
-                        if (bet.check_win(*nr)) {
-                            balance += bet.get_win();
-                            std::cout << "You won! Your balance is now: " << balance << std::endl;
-                        } else {
-                            std::cout << "You lost! Your balance is now: " << balance << std::endl;
-                        }
-                        break;
-                    }
-                    default:
-                        std::cout << "Invalid choice. Please try again." << std::endl;
-                        continue;
+                try {
+                    std::unique_ptr<Bet> b = BetFactory::create_bet(amount, bet_choice);
+                    r->add_bet(std::move(b));
+                } catch (std::invalid_argument &e) {
+                    std::cout << e.what() << std::endl;
+                    goto choose_bet;
+                }
+                add_bet:
+                std::cout<<"Add another bet? (y/n): ";
+                std::cin >> aux;
+                if (aux == "y")
+                    goto enter_amount;
+                else if (aux != "n") {
+                    std::cout << "Invalid choice. Please try again." << std::endl;
+                    goto add_bet;
+                }
+                else {
+                    int win=r->start_round();
+                    if(win>0)
+                        std::cout << "You won " << win << "!" << std::endl;
+                    else
+                        std::cout << "You lost " << -win << "!" << std::endl;
                 }
                 break;
             case 2:
@@ -287,8 +197,12 @@ Roulette::Number *Roulette::spin_wheel() {
 
 Roulette::Bet::Bet(int amount) : amount(amount) {}
 
-int Roulette::Bet::get_amount() const {
-    return amount;
+int Roulette::Bet::notify_win(const Number &nr) const {
+    if (check_win(nr)) {
+        return get_win();
+    } else {
+        return -amount;
+    }
 }
 
 // CLASS ColorBet
@@ -318,7 +232,6 @@ int ColorBet::get_win() const {
 }
 
 bool ColorBet::check_win(const Roulette::Number &nr) const {
-    std::cout << "Color: " << nr.get_color() << std::endl;
     return nr.get_color() == color;
 }
 
@@ -346,7 +259,6 @@ int ParityBet::get_win() const {
 }
 
 bool ParityBet::check_win(const Roulette::Number &nr) const {
-    std::cout << "Parity: " << nr.get_parity() << std::endl;
     return nr.get_parity() == parity;
 }
 
@@ -377,7 +289,6 @@ int DozenBet::get_win() const {
 }
 
 bool DozenBet::check_win(const Roulette::Number &nr) const {
-    std::cout << "Dozen: " << nr.get_dozen() << std::endl;
     return nr.get_dozen() == dozen;
 }
 
@@ -408,7 +319,6 @@ int ColumnBet::get_win() const {
 }
 
 bool ColumnBet::check_win(const Roulette::Number &nr) const {
-    std::cout << "Column: " << nr.get_column() << std::endl;
     return nr.get_column() == column;
 }
 
@@ -436,6 +346,46 @@ int NumberBet::get_win() const {
 
 bool NumberBet::check_win(const Roulette::Number &nr) const {
     return nr.get_value() == number;
+}
+
+std::unique_ptr<Roulette::Bet> BetFactory::create_bet(int amount, int choice) {
+    switch (choice) {
+        case 1:
+            return std::make_unique<ColorBet>(amount);
+        case 2:
+            return std::make_unique<ParityBet>(amount);
+        case 3:
+            return std::make_unique<DozenBet>(amount);
+        case 4:
+            return std::make_unique<ColumnBet>(amount);
+        case 5:
+            return std::make_unique<NumberBet>(amount);
+        default:
+            throw std::invalid_argument("Invalid choice for bet type. Please try again.\n");
+    }
+}
+
+RouletteRound::RouletteRound(Roulette* r){
+    total_win = 0;
+    this->r = r;
+    winning_number = nullptr;
+}
+
+void RouletteRound::add_bet(std::unique_ptr<Roulette::Bet> bet) {
+    bets.push_back(std::move(bet));
+}
+
+void RouletteRound::notify() {
+    for (auto &b: bets) {
+        total_win += b->notify_win(*winning_number);
+    }
+    r->add_balance(total_win);
+}
+
+int RouletteRound::start_round() {
+    winning_number = r->spin_wheel();
+    notify();
+    return total_win;
 }
 
 //win multipliers
